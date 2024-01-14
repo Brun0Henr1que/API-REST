@@ -57,8 +57,13 @@ const informacoes_usuario = async(req, res) =>{
 // UPDATE 
 const atualizar_dados = async(req, res) => {
     const token_id = await jwt.jwt_auth(req.body.token);
-    await query.updateData(token_id, req.body);
-    return res.status(201).json({message: "Dados atualizados com sucesso"});
+    const {campo_alterar} = req.body; 
+    if (campo_alterar === "id"){
+        return res.status(400).json({message: "Você não tem permissão para alterar estes dados"})
+    }else{
+        await query.updateData(token_id, req.body);
+        return res.status(201).json({message: "Dados atualizados com sucesso"});
+    };
 };
 
 // DELETE

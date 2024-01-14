@@ -13,8 +13,6 @@ const insertDataCredencials = async(login) => {
     const {email} = login;
     const {senha} = login;
     const senha_hash = crypto.createHash('sha256').update(senha).digest('hex');
-    console.log(senha_hash);
-
     const dados = await Credenciais.create({email: `${email}`, senha: `${senha_hash}`});
     return dados;
 };
